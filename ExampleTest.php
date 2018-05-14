@@ -6,6 +6,7 @@ use Drupal\file\Entity\File;
 use Drupal\node\Entity\Node;
 use PHPUnit\Framework\TestCase;
 use weitzman\DrupalTestTraits\DrupalSetup;
+use weitzman\DrupalTestTraits\Entity\NodeCreationTrait;
 use weitzman\DrupalTestTraits\MinkSetup;
 
 /**
@@ -42,6 +43,7 @@ class ExampleTest extends TestCase {
       ],
     ]);
     $node->setPublished(TRUE)->save();
+    // If directly creating entities in tests, they can be marked for cleanup.
     $this->markEntityForCleanup($node);
 
     $this->visit($file->url());
