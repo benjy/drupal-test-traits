@@ -20,11 +20,6 @@ class ExampleTest extends TestCase {
   use MinkSetup;
   use DrupalSetup;
 
-    /**
-     * Automatically cleanup nodes created via `$this->createNode()`.
-     */
-    use NodeCreationTrait;
-
   /**
    * An example test method; note that Drupal API's and Mink are available.
    */
@@ -53,11 +48,6 @@ class ExampleTest extends TestCase {
 
     $this->visit($file->url());
     $this->assertEquals($this->getSession()->getStatusCode(), 200);
-
-    // Nodes are automatically added for cleanup when using `weitzman\DrupalTestTraits\Entity\NodeCreationTrait`.
-    $node = $this->createNode(['type' => 'article']);
-    $this->visit($node->toUrl()->toString());
-    $this->assertEquals(200, $this->getSession()->getStatusCode());
   }
 
 }
