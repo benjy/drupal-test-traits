@@ -49,6 +49,8 @@ trait DrupalSetup
     $this->kernel = DrupalKernel::createFromRequest($request, $classLoader, 'existing-site-testcase', false, $finder->getDrupalRoot());
     chdir(DRUPAL_ROOT);
     $this->kernel->prepareLegacyRequest($request);
+    restore_error_handler();
+
     $this->container = $this->kernel->getContainer();
 
     // Register stream wrappers.
