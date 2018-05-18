@@ -55,7 +55,6 @@ trait DrupalSetup
         );
         chdir(DRUPAL_ROOT);
         $this->kernel->prepareLegacyRequest($request);
-        restore_error_handler();
 
         $this->container = $this->kernel->getContainer();
 
@@ -73,8 +72,10 @@ trait DrupalSetup
         foreach ($this->cleanupEntities as $entity) {
             $entity->delete();
         }
-      // Avoid leaking memory in test cases (which are retained for a long time)
-      // by removing references to all the things.
+        restore_error_handler();
+
+        // Avoid leaking memory in test cases (which are retained for a long time)
+        // by removing references to all the things.
         $this->cleanupEntities = [];
         $this->kernel->shutdown();
         $this->kernel = null;
